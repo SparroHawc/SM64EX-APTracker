@@ -15,24 +15,6 @@ function Reset(slotData)
     Tracker:FindObjectForCode("Star100").Active = true
     Tracker:FindObjectForCode("Goal").CurrentStage = 0
     
-    --Auto-tracked Items
-    for _, value in pairs(ItemMap) do
-        local itemCode = value[1]
-        local itemType = value[2]
-        if itemCode then
-            local item = Tracker:FindObjectForCode(itemCode)
-            if item then
-                if itemType == "toggle" then
-                    item.Active = false
-                elseif itemType == "move" then
-                    item.Active = true
-                elseif itemType == "consumable" then
-                    item.AcquiredCount = 0
-                end
-            end
-        end
-    end
-
     --Locations
     for _, value in pairs(LocationMap) do
         local area = value[1]
@@ -43,7 +25,7 @@ function Reset(slotData)
             location.AvailableChestCount = location.ChestCount
         end
     end
-
+    
     --Settings
     if slotData == nil then
         return
@@ -101,6 +83,24 @@ function Reset(slotData)
     if slotData["MIPS2Cost"] then
         local setting = Tracker:FindObjectForCode("MIPS2")
         setting.AcquiredCount = slotData["MIPS2Cost"]
+    end
+    
+    --Auto-tracked Items
+    for _, value in pairs(ItemMap) do
+        local itemCode = value[1]
+        local itemType = value[2]
+        if itemCode then
+            local item = Tracker:FindObjectForCode(itemCode)
+            if item then
+                if itemType == "toggle" then
+                    item.Active = false
+                elseif itemType == "move" then
+                    item.Active = true
+                elseif itemType == "consumable" then
+                    item.AcquiredCount = 0
+                end
+            end
+        end
     end
 end
 
